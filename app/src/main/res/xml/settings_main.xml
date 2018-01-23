@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/settings_title">
+
+        <!--
+               ListPreference
+                   A Preference that displays a list of entries as a dialog.
+
+                   This preference will store a string into the SharedPreferences. This string will be
+                   the value from the setEntryValues(CharSequence[]) array.
+           -->
+        <ListPreference
+            android:key="@string/settings_news_topic_key"
+            android:title="@string/settings_news_topic_label"
+            android:defaultValue="@string/settings_news_topic_default"
+            android:entries="@array/news_topics_names_array"
+            android:entryValues="@array/news_topics_values_array"
+                       />
+</PreferenceScreen>

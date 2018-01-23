@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- foreground color names array -->
+    <string-array name="news_topics_names_array">
+        <item>Fashion</item>
+        <!--item>fashion</item-->
+
+        <item>Sport</item>
+        <!--item>sport</item-->
+
+        <item>Media</item>
+        <!--item>media</item-->
+
+        <item>Film</item>
+        <!--item>film</item-->
+
+        <item>World</item>
+        <!--item>world</item-->
+    </string-array>
+
+    <!-- foreground color values array -->
+    <string-array name="news_topics_values_array">
+        <!--item>Fashion</item-->
+        <item>fashion</item>
+
+        <item>sport</item>
+        <!--item>Sport</item-->
+
+        <item>media</item>
+        <!--item>Media</item-->
+
+        <item>film</item>
+        <!--item>Film</item-->
+
+        <item>world</item>
+        <!--item>World</item-->
+    </string-array>
+</resources>

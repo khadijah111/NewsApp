@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="no_news">No articles found.</string>
+    <string name="no_connectivity">No INTERNET CONNECTION !!.</string>
+
+    <string name="settings_title" >News Setting activity</string>
+
+    <string name="settings_news_topic_label">News Topic</string>
+    <string name="settings_news_topic_key" translatable="false">news_topic</string>
+    <string name="settings_news_topic_default">sports</string>
+
+    <string name="settings_menu_item">Search Preference</string>
+</resources>
