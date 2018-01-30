@@ -24,6 +24,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+//version 2
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     private static final int EARTHQUAKE_LOADER_ID = 1;
@@ -34,14 +35,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    /** URL for earthquake data from the USGS dataset */
+    /**
+     * URL for earthquake data from the USGS dataset
+     */
     public static String USGS_REQUEST_URL =
-             "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&api-key=test";
+            "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&api-key=test";
 
-    /** Adapter for the list of earthquakes */
+    /**
+     * Adapter for the list of earthquakes
+     */
     private NewsArrayAdapter mAdapter;
 
-    /** TextView that is displayed when the list is empty */
+    /**
+     * TextView that is displayed when the list is empty
+     */
     private TextView mEmptyStateTextView;
 
     private String keywordSearch = "";
@@ -56,13 +63,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         // Find a reference to the {@link Button} in the layout
-        SearchButton = (Button)findViewById(R.id.searchButton);
+        SearchButton = (Button) findViewById(R.id.searchButton);
 
         // Find a reference to the {@link ListView} in the layout
         ListView newsListView = (ListView) findViewById(R.id.list);
 
         // Find a reference to the {@link TextView} in the layout
-        textKeyword = (TextView)findViewById(R.id.editText);
+        textKeyword = (TextView) findViewById(R.id.editText);
 
         // Create a new {@link ArrayAdapter} of news
         mAdapter = new NewsArrayAdapter(this, new ArrayList<News>());
@@ -75,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         newsListView.setEmptyView(mEmptyStateTextView);
 
         // If there is a network connection, fetch data
-        if(isOnline())
-        {
+        if (isOnline()) {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
 
@@ -84,9 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
             // because this activity implements the LoaderCallbacks interface).
             loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
-        }
-        else
-        {// Otherwise, display error
+        } else {// Otherwise, display error
             // First, hide progress indicator so error message will be visible
             View loadingIndicator = findViewById(R.id.progressView);
             loadingIndicator.setVisibility(View.GONE);
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
 
-        newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Get the {@link News} object located at this position in the Arraylist
@@ -120,43 +124,46 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 mEmptyStateTextView.setVisibility(View.GONE);
                 mAdapter.clear();
 
-                if(textKeyword.getText().toString().trim().matches(""))
-                {
+                if (textKeyword.getText().toString().trim().matches("")) {
                     //set the empty view message
                     mEmptyStateTextView.setVisibility(View.VISIBLE);
                     mEmptyStateTextView.setText("please type something in the search box..!");
-                    Log.v("tag" , "NO DATA");
-                }
-                else
-                {
+                    Log.v("tag", "NO DATA");
+                } else {
                     //get data "keyword" from Edit TEXT
-                    keywordSearch  = textKeyword.getText().toString().trim();
+                    keywordSearch = textKeyword.getText().toString().trim();
                     textKeyword.setText("");
-                    Log.v("tag" , keywordSearch);
+                    Log.v("tag", keywordSearch);
                     //create GOOGLE URL REQUEST with the typed keyword from the user
-                    USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&q=" +keywordSearch+ "&api-key=test";
-                    Log.v("tag" , USGS_REQUEST_URL.toString());
+                    //USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&q=" + keywordSearch + "&api-key=test";
+                    //Log.v("tag", USGS_REQUEST_URL.toString());
 
                     //chick the internet connectivity
                     // If there is a network connection, fetch data
                     // If there is a network connection, fetch data
-                    if(isOnline())
-                    {
+                    if (isOnline()) {
+                        // mEmptyStateTextView.setVisibility(GONE);
+                        // circleProgressBar.setVisibility(View.VISIBLE);
+                        getLoaderManager().restartLoader(EARTHQUAKE_LOADER_ID, null, MainActivity.this);
+
                         // Get a reference to the LoaderManager, in order to interact with loaders.
-                        LoaderManager loaderManager = getLoaderManager();
+                        //LoaderManager loaderManager = getLoaderManager();
 
                         // Restart the loader. Pass in the int ID constant defined above and pass in null for
                         // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
                         // because this activity implements the LoaderCallbacks interface).
-                        loaderManager.restartLoader(EARTHQUAKE_LOADER_ID, null, MainActivity.this);
-                    }
-                    else
-                    {// Otherwise, display error
+                        // loaderManager.restartLoader(EARTHQUAKE_LOADER_ID, null, MainActivity.this);
+                    } else {// Otherwise, display error
                         // First, hide progress indicator so error message will be visible
                         View loadingIndicator = findViewById(R.id.progressView);
                         loadingIndicator.setVisibility(View.GONE);
 
+                        // Clear the adapter of previous newses data
+                        mAdapter.clear();
+
                         // Set empty state text to display "No earthquakes found."
+                        // Set mEmptyStateTextView visible
+                        mEmptyStateTextView.setVisibility(View.VISIBLE);
                         mEmptyStateTextView.setText(R.string.no_connectivity);
                     }
                 }
@@ -172,10 +179,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         loadingIndicator.setVisibility(View.VISIBLE);
         mEmptyStateTextView.setVisibility(View.GONE);
 
-         //retrieveValuesFromPreference();
-        // String req =
-        USGS_REQUEST_URL = "http://content.guardianapis.com/search?";
+        if (keywordSearch.equals("")) {
+            USGS_REQUEST_URL = "http://content.guardianapis.com/search?";
 
+        } else {
+            USGS_REQUEST_URL = "http://content.guardianapis.com/search?q=" + keywordSearch;
+        }
         // Get the user's settings from SharedPreferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -191,25 +200,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         // Append query parameter and its value. For example, the `q=sport`
-        uriBuilder.appendQueryParameter("order-by","newest" );
-        uriBuilder.appendQueryParameter("show-tags","contributor" );
-        uriBuilder.appendQueryParameter("show-elements","image" );
-        uriBuilder.appendQueryParameter("section",newsTopic );
-        uriBuilder.appendQueryParameter("api-key","test" );
-        Log.v("full Uri",uriBuilder.toString());
-
-        Log.e("full Uri",uriBuilder.toString());
-        // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
+        uriBuilder.appendQueryParameter("order-by", "newest");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("show-elements", "image");
+        uriBuilder.appendQueryParameter("section", newsTopic);
+        uriBuilder.appendQueryParameter("api-key", "test");
+        Log.v("full Uri", uriBuilder.toString());
+        // Return the completed uri `
         USGS_REQUEST_URL = uriBuilder.toString();
-        Log.e("NOTE","OnCreateLoader CALLED" + USGS_REQUEST_URL);
-
+        Log.e("NOTE", "OnCreateLoader CALLED" + USGS_REQUEST_URL);
         return new NewsLoader(this, USGS_REQUEST_URL);
     }
+
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
 
-        Log.e("NOTE","onLoadFinished CALLED");
+        Log.e("NOTE", "onLoadFinished CALLED");
 
         // Hide loading progress because the data has been loaded
         View loadingIndicator = findViewById(R.id.progressView);
@@ -218,22 +225,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Set empty state text to display "No news found."
         mEmptyStateTextView.setText(R.string.no_news);
 
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous news data
         mAdapter.clear();
-        USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&api-key=test";
+        //USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&api-key=test";
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);
+
         }
     }
 
-    @Override
-    public void onLoaderReset(Loader<List<News>> loader) {
-        // Loader reset, so we can clear out our existing data.
-        Log.e("NOTE","onLoaderReset CALLED");
-        mAdapter.clear();
-    }
 
     public boolean isOnline() {
         // Get a reference to the ConnectivityManager to check state of network connectivity
@@ -243,6 +245,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         NetworkInfo NWinfo = connectMNGR.getActiveNetworkInfo();
         return NWinfo != null && NWinfo.isConnected();
     }
+
+    @Override
+    public void onLoaderReset(Loader<List<News>> loader) {
+        // Loader reset, so we can clear out our existing data.
+        Log.e("NOTE", "onLoaderReset CALLED");
+        mAdapter.clear();
+    }
+
 
     @Override
     // This method initialize the contents of the Activity's options menu.

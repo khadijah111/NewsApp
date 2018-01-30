@@ -232,18 +232,22 @@ public class QuiryUtil {
             try {
                 //Log.e("src",src);
                 URL url = new URL(src);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                Log.e("src",src);
+                Log.e("URL",url.toString());
+               /* HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);
                 connection.connect();
                 InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                Bitmap myBitmap = BitmapFactory.decodeStream(input);*/
                 // Log.e("Bitmap","returned");
-                return myBitmap;
+                Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                return image;
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.e("Exception", e.getMessage());
                 return null;
             }
+
         }
     }
 
