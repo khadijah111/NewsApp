@@ -12,7 +12,7 @@ public class News {
     // @param  name of the section
     private String mSectionName;
 
-     // @param articleDate
+    // @param articleDate
     private String mArticleDate;
 
     // @param URL of the Article
@@ -24,34 +24,44 @@ public class News {
     /*Image for the book*/
     private Bitmap mArticleImage;
 
-    public News(String articleTitle, String sectionName, String date, String url, String author, Bitmap articleImage)
-    {
+    public News(String articleTitle, String sectionName, String date, String url, String author, Bitmap articleImage) {
         mArticleTitle = articleTitle;
-        mSectionName = sectionName ;
+        mSectionName = sectionName;
         mArticleDate = date;
         mArticleUrl = url;
         mArticleAuthor = author;
         mArticleImage = articleImage;
     }
-    public News(String articleTitle, String sectionName, String date, String url, String author)
-    {
+
+    public News(String articleTitle, String sectionName, String date, String url, String author) {
         mArticleTitle = articleTitle;
-        mSectionName = sectionName ;
+        mSectionName = sectionName;
         mArticleDate = date;
         mArticleUrl = url;
         mArticleAuthor = author;
     }
 
-    public Bitmap getArticleImage() {return mArticleImage;}
+    public Bitmap getArticleImage() {
+        return mArticleImage;
+    }
+
     public String getAuthorName() {
         return mArticleAuthor;
     }
+
     public String getSectionName() {
         return mSectionName;
     }
-    public String getArticleDate() {   return mArticleDate;  }
+
+    public String getArticleDate() {
+        return mArticleDate;
+    }
+
     public String getUrl() {
         return mArticleUrl;
     }
-    public String getArticleTitle() { return mArticleTitle;  }
+
+    public String getArticleTitle() {
+        return mArticleTitle;
+    }
 }

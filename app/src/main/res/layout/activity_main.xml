@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
+        android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Topic for which news you want "
         android:layout_alignParentLeft="true"
-        android:id="@+id/editText"
-        android:maxLines="1"
-        android:layout_toLeftOf="@+id/searchButton"/>
+        android:layout_toLeftOf="@+id/searchButton"
+        android:hint="@string/search_hint"
+        android:maxLines="1" />
 
     <Button
+        android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
         android:layout_alignParentRight="true"
         android:padding="6dp"
-        android:id="@+id/searchButton"/>
+        android:text="Search" />
     <!-- Layout for a list of newest news -->
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/list"
-        android:layout_below="@id/searchButton"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchButton"
+        android:orientation="vertical" />
 
     <!-- Empty view is only visible when the list has no items. -->
     <TextView
@@ -34,13 +33,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textAppearance="?android:textAppearanceMedium"/>
+        android:textAppearance="?android:textAppearanceMedium" />
 
     <ProgressBar
+        android:id="@+id/progressView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressView"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
 

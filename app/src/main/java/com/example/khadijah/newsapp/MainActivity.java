@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     public static String USGS_REQUEST_URL =
             "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&api-key=test";
-
     /**
      * Adapter for the list of earthquakes
      */
@@ -105,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Get the {@link News} object located at this position in the Arraylist
                 News currentNews = mAdapter.getItem(position); //or earthquakes.get(position);
-
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentNews.getUrl()));
                 startActivity(browserIntent);
             }
@@ -167,10 +165,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         mEmptyStateTextView.setText(R.string.no_connectivity);
                     }
                 }
-
             }
         });
-
     }
 
     @Override
@@ -178,10 +174,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         View loadingIndicator = findViewById(R.id.progressView);
         loadingIndicator.setVisibility(View.VISIBLE);
         mEmptyStateTextView.setVisibility(View.GONE);
-
         if (keywordSearch.equals("")) {
             USGS_REQUEST_URL = "http://content.guardianapis.com/search?";
-
         } else {
             USGS_REQUEST_URL = "http://content.guardianapis.com/search?q=" + keywordSearch;
         }
@@ -208,16 +202,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.v("full Uri", uriBuilder.toString());
         // Return the completed uri `
         USGS_REQUEST_URL = uriBuilder.toString();
-        Log.e("NOTE", "OnCreateLoader CALLED" + USGS_REQUEST_URL);
+        //Log.v("NOTE", "OnCreateLoader CALLED" + USGS_REQUEST_URL);
         return new NewsLoader(this, USGS_REQUEST_URL);
     }
-
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
 
-        Log.e("NOTE", "onLoadFinished CALLED");
-
+       // Log.v("NOTE", "onLoadFinished CALLED");
         // Hide loading progress because the data has been loaded
         View loadingIndicator = findViewById(R.id.progressView);
         loadingIndicator.setVisibility(View.GONE);
@@ -236,7 +228,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
-
     public boolean isOnline() {
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connectMNGR = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -252,7 +243,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.e("NOTE", "onLoaderReset CALLED");
         mAdapter.clear();
     }
-
 
     @Override
     // This method initialize the contents of the Activity's options menu.

@@ -9,5 +9,9 @@
     <string name="settings_news_topic_key" translatable="false">news_topic</string>
     <string name="settings_news_topic_default">sports</string>
 
-    <string name="settings_menu_item">Sitting</string>
+    <string name="settings_menu_item">Setting</string>
+
+    <string name="search_hint">Topic for which news you want</string>
+
+
 </resources>

@@ -212,7 +212,6 @@ public class QuiryUtil {
             }
 
             // build up a list of Earthquake objects with the corresponding data.
-
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
@@ -226,14 +225,14 @@ public class QuiryUtil {
     }
 
     public static Bitmap getBitmapFromURL(String src) {
-        if (src == null) {
+        if (src == null || src.equals("")) {
             return null;
         } else {
             try {
                 //Log.e("src",src);
                 URL url = new URL(src);
-                Log.e("src",src);
-                Log.e("URL",url.toString());
+                //Log.e("src",src);
+                //Log.e("URL",url.toString());
                /* HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);
                 connection.connect();
@@ -250,6 +249,4 @@ public class QuiryUtil {
 
         }
     }
-
-
 }

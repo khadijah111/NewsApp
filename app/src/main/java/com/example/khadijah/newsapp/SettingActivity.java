@@ -27,7 +27,6 @@ public class SettingActivity extends AppCompatActivity {
             bindPreferenceSummaryToValue(minMagnitude);
         }
 
-
         @Override
            /*
             this method will be called when the user has changed a Preference,

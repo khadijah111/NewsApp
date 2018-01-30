@@ -1,14 +1,15 @@
 package com.example.khadijah.newsapp;
 
 import android.content.Context;
-        import android.content.AsyncTaskLoader;
-        import java.util.ArrayList;
-        import java.util.List;
+import android.content.AsyncTaskLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by khadijah on 1/14/2018.
  */
-public class NewsLoader extends AsyncTaskLoader<List<News>>{
+public class NewsLoader extends AsyncTaskLoader<List<News>> {
     /**
      * This method is invoked (or called) on a background thread, so we can perform
      * long-running operations like making a network request.
@@ -16,17 +17,21 @@ public class NewsLoader extends AsyncTaskLoader<List<News>>{
      * It is NOT okay to update the UI from a background thread, so we just return an
      * {@link ArrayList <NewsLoader>} object as the result.
      */
-    /** Tag for log messages */
+    /**
+     * Tag for log messages
+     */
     private static final String LOG_TAG = NewsLoader.class.getName();
 
-    /** Query URL */
+    /**
+     * Query URL
+     */
     private String mUrl;
 
     /**
      * Constructs a new {@link NewsLoader}.
      *
      * @param context of the activity
-     * @param url to load data from
+     * @param url     to load data from
      */
     public NewsLoader(Context context, String url) {
         super(context);
