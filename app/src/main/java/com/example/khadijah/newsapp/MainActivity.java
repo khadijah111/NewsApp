@@ -125,8 +125,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 if (textKeyword.getText().toString().trim().matches("")) {
                     //set the empty view message
                     mEmptyStateTextView.setVisibility(View.VISIBLE);
-                    mEmptyStateTextView.setText("please type something in the search box..!");
-                    Log.v("tag", "NO DATA");
+                    mEmptyStateTextView.setText(R.string.search_message);
+                    //Log.v("tag", "NO DATA");
                 } else {
                     //get data "keyword" from Edit TEXT
                     keywordSearch = textKeyword.getText().toString().trim();
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
         // Loader reset, so we can clear out our existing data.
-        Log.e("NOTE", "onLoaderReset CALLED");
+        //Log.e("NOTE", "onLoaderReset CALLED");
         mAdapter.clear();
     }
 

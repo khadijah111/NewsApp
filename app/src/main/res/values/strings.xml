@@ -13,5 +13,5 @@
 
     <string name="search_hint">Topic for which news you want</string>
 
-
+    <string name="search_message">"please type something in the search box..!"</string>
 </resources>

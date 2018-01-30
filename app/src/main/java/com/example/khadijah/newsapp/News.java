@@ -33,14 +33,6 @@ public class News {
         mArticleImage = articleImage;
     }
 
-    public News(String articleTitle, String sectionName, String date, String url, String author) {
-        mArticleTitle = articleTitle;
-        mSectionName = sectionName;
-        mArticleDate = date;
-        mArticleUrl = url;
-        mArticleAuthor = author;
-    }
-
     public Bitmap getArticleImage() {
         return mArticleImage;
     }
