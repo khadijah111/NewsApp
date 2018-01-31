@@ -88,7 +88,6 @@ public class QuiryUtil {
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
-                // Log.e("connection200", "200 code: " + urlConnection.getResponseCode());
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -146,7 +145,6 @@ public class QuiryUtil {
         try {
             // Create a JSONObject from the JSON response string
             JSONObject ROOT = new JSONObject(SAMPLE_JSON_RESPONSE);
-
             JSONObject responseObject = ROOT.getJSONObject("response");
             // Extract the JSONArray associated with the key called "results",
             // which represents a list of results (or articles).
@@ -173,14 +171,13 @@ public class QuiryUtil {
 
                 // Extract the value for the key called "webPublicationDate"
                 String articleDateValue = currentArticle.optString("webPublicationDate");
-                //Log.e(LOG_TAG, "try to extraxt tags");
+
                 JSONArray tagsArray = currentArticle.getJSONArray("tags");
 
                 String articlAuthor = "";
                 Bitmap articleImageBitMap = null;
 
                 if (currentArticle.getJSONArray("tags") != null) {
-                    //Log.e(LOG_TAG, "TAGS EXTRACTED");
                     String articleImageUrl = "";
 
                     // For each news article in the newsArray, create an {@link News} object
@@ -196,8 +193,6 @@ public class QuiryUtil {
                 News CurrentNews = new News(articleTitleValue, sectionNameValue, articleDateValue, articleUrlValue, articlAuthor, articleImageBitMap);
                 articlesList.add(CurrentNews);
             }
-
-            // build up a list of Earthquake objects with the corresponding data.
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
@@ -213,10 +208,7 @@ public class QuiryUtil {
             return null;
         } else {
             try {
-                //Log.e("src",src);
                 URL url = new URL(src);
-                //Log.e("src",src);
-                //Log.e("URL",url.toString());
                 Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 return image;
             } catch (IOException e) {

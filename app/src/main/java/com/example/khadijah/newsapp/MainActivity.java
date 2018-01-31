@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             mEmptyStateTextView.setText(R.string.no_connectivity);
         }
 
-
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -112,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         SearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 View v = getCurrentFocus();   //for hiding the keyboard when search button is clicked
                 if (v != null) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -134,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                     //chick the internet connectivity
                     // If there is a network connection, fetch data
-                    // If there is a network connection, fetch data
                     if (isOnline()) {
                         // Restart the loader. Pass in the int ID constant defined above and pass in null for
                         // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
@@ -149,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         // Clear the adapter of previous newses data
                         mAdapter.clear();
 
-                        // Set empty state text to display "No earthquakes found."
+                        // Set empty state text to display "No NEWS found."
                         // Set mEmptyStateTextView visible
                         mEmptyStateTextView.setVisibility(View.VISIBLE);
                         mEmptyStateTextView.setText(R.string.no_connectivity);
@@ -192,14 +189,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.v("full Uri", uriBuilder.toString());
         // Return the completed uri `
         USGS_REQUEST_URL = uriBuilder.toString();
-        //Log.v("NOTE", "OnCreateLoader CALLED" + USGS_REQUEST_URL);
         return new NewsLoader(this, USGS_REQUEST_URL);
     }
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
 
-       // Log.v("NOTE", "onLoadFinished CALLED");
+        // Log.v("NOTE", "onLoadFinished CALLED");
         // Hide loading progress because the data has been loaded
         View loadingIndicator = findViewById(R.id.progressView);
         loadingIndicator.setVisibility(View.GONE);
@@ -209,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Clear the adapter of previous news data
         mAdapter.clear();
-         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);
@@ -228,7 +224,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
         // Loader reset, so we can clear out our existing data.
-        //Log.e("NOTE", "onLoaderReset CALLED");
         mAdapter.clear();
     }
 
