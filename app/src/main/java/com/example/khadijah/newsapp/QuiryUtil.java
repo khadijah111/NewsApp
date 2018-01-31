@@ -25,11 +25,14 @@ import java.util.List;
  */
 public class QuiryUtil {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = QuiryUtil.class.getSimpleName();
 
     /**
-     * Query the USGS dataset and return an {@link News} object to represent a single News.*/
+     * Query the USGS dataset and return an {@link News} object to represent a single News.
+     */
     public static List<News> fetchEarthquakeData(String requestUrl) {
 
         // Create URL object
@@ -85,15 +88,14 @@ public class QuiryUtil {
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
-               // Log.e("connection200", "200 code: " + urlConnection.getResponseCode());
-
+                // Log.e("connection200", "200 code: " + urlConnection.getResponseCode());
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
                 Log.e("ERROR", "Error response code: " + urlConnection.getErrorStream());
             }
         } catch (IOException e) {
-            Log.e("ERROR", "Problem retrieving the earthquake JSON results."+ e.getMessage(), e);
+            Log.e("ERROR", "Problem retrieving the earthquake JSON results." + e.getMessage(), e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -135,7 +137,6 @@ public class QuiryUtil {
         if (TextUtils.isEmpty(SAMPLE_JSON_RESPONSE)) {
             return null;
         }
-
         // Create an empty ArrayList that we can start adding earthquakes to
         List<News> articlesList = new ArrayList<>();
 
@@ -147,22 +148,20 @@ public class QuiryUtil {
             JSONObject ROOT = new JSONObject(SAMPLE_JSON_RESPONSE);
 
             JSONObject responseObject = ROOT.getJSONObject("response");
-
             // Extract the JSONArray associated with the key called "results",
             // which represents a list of results (or articles).
             JSONArray newsArray = null;
-            if(responseObject.has("results"))
-            { newsArray = responseObject.getJSONArray("results");}
+            if (responseObject.has("results")) {
+                newsArray = responseObject.getJSONArray("results");
+            }
 
             // For each news article in the newsArray, create an {@link News} object
-            for(int i=0; i<newsArray.length(); i++)
-            {
+            for (int i = 0; i < newsArray.length(); i++) {
                 // Get a single article at position i within the list of news articles
                 JSONObject currentArticle = newsArray.getJSONObject(i);
                 // For a given article, extract the JSONObject associated with the
-                // key called "properties", which represents a list of all properties
-                // for that earthquake.
-
+                // key called "results", which represents a list of all properties
+                // for that news.
                 // Extract the value for the key called "sectionName"
                 String sectionNameValue = currentArticle.optString("sectionName");
 
@@ -175,19 +174,17 @@ public class QuiryUtil {
                 // Extract the value for the key called "webPublicationDate"
                 String articleDateValue = currentArticle.optString("webPublicationDate");
                 //Log.e(LOG_TAG, "try to extraxt tags");
-               JSONArray tagsArray = currentArticle.getJSONArray("tags");
+                JSONArray tagsArray = currentArticle.getJSONArray("tags");
 
                 String articlAuthor = "";
                 Bitmap articleImageBitMap = null;
 
-                if(currentArticle.getJSONArray("tags") != null) {
+                if (currentArticle.getJSONArray("tags") != null) {
                     //Log.e(LOG_TAG, "TAGS EXTRACTED");
-
                     String articleImageUrl = "";
 
                     // For each news article in the newsArray, create an {@link News} object
                     for (int j = 0; j < tagsArray.length(); j++) {
-
                         // Get a single tag at position i within the list of article tags
                         JSONObject currentTag = tagsArray.getJSONObject(j);
                         articlAuthor = currentTag.getString("firstName");
@@ -195,9 +192,8 @@ public class QuiryUtil {
                         articleImageBitMap = getBitmapFromURL(articleImageUrl);
                     }
                 }
-
                 // Create a new {@link News} object with the article name, date, author, url, and section from the JSON response.
-                News CurrentNews = new News(articleTitleValue, sectionNameValue,articleDateValue,articleUrlValue,articlAuthor,articleImageBitMap );
+                News CurrentNews = new News(articleTitleValue, sectionNameValue, articleDateValue, articleUrlValue, articlAuthor, articleImageBitMap);
                 articlesList.add(CurrentNews);
             }
 
@@ -208,10 +204,8 @@ public class QuiryUtil {
             // with the message from the exception.
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         }
-
         // Return the list of earthquakes
         return articlesList;
-
     }
 
     public static Bitmap getBitmapFromURL(String src) {
@@ -223,12 +217,6 @@ public class QuiryUtil {
                 URL url = new URL(src);
                 //Log.e("src",src);
                 //Log.e("URL",url.toString());
-               /* HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);*/
-                // Log.e("Bitmap","returned");
                 Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 return image;
             } catch (IOException e) {
@@ -236,7 +224,6 @@ public class QuiryUtil {
                 Log.e("Exception", e.getMessage());
                 return null;
             }
-
         }
     }
 }
