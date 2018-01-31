@@ -84,15 +84,12 @@ public class NewsArrayAdapter extends ArrayAdapter<News> {
         //NOW Find the TextView in the news_list_item.xml layout with the ID articleImage_imageView
         ImageView articleImageTextView = (ImageView) listItemView.findViewById(R.id.articleImage_imageView);
 
-        if( currentNews.getArticleImage() != null)
-        {
+        if (currentNews.getArticleImage() != null) {
             Bitmap articleImage = currentNews.getArticleImage();
 
             // Display the article image of the current news in that TextView
             articleImageTextView.setImageBitmap(articleImage);
-        }
-        else
-        {
+        } else {
             articleImageTextView.setImageResource(R.drawable.nobookcover);
         }
 

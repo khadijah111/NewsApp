@@ -27,7 +27,7 @@ import java.util.List;
 //version 2
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private static final int EARTHQUAKE_LOADER_ID = 1;
+    private static final int NEWS_LOADER_ID = 1;
 
     /**
      * Constant value for the earthquake loader ID. We can choose any integer.
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
             // because this activity implements the LoaderCallbacks interface).
-            loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+            loaderManager.initLoader(NEWS_LOADER_ID, null, this);
         } else {// Otherwise, display error
             // First, hide progress indicator so error message will be visible
             View loadingIndicator = findViewById(R.id.progressView);
@@ -126,31 +126,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     //set the empty view message
                     mEmptyStateTextView.setVisibility(View.VISIBLE);
                     mEmptyStateTextView.setText(R.string.search_message);
-                    //Log.v("tag", "NO DATA");
                 } else {
                     //get data "keyword" from Edit TEXT
                     keywordSearch = textKeyword.getText().toString().trim();
                     textKeyword.setText("");
                     Log.v("tag", keywordSearch);
-                    //create GOOGLE URL REQUEST with the typed keyword from the user
-                    //USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&q=" + keywordSearch + "&api-key=test";
-                    //Log.v("tag", USGS_REQUEST_URL.toString());
 
                     //chick the internet connectivity
                     // If there is a network connection, fetch data
                     // If there is a network connection, fetch data
                     if (isOnline()) {
-                        // mEmptyStateTextView.setVisibility(GONE);
-                        // circleProgressBar.setVisibility(View.VISIBLE);
-                        getLoaderManager().restartLoader(EARTHQUAKE_LOADER_ID, null, MainActivity.this);
-
-                        // Get a reference to the LoaderManager, in order to interact with loaders.
-                        //LoaderManager loaderManager = getLoaderManager();
-
                         // Restart the loader. Pass in the int ID constant defined above and pass in null for
                         // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-                        // because this activity implements the LoaderCallbacks interface).
-                        // loaderManager.restartLoader(EARTHQUAKE_LOADER_ID, null, MainActivity.this);
+                        // because this activity implements the LoaderCallbacks interface)
+                        getLoaderManager().restartLoader(NEWS_LOADER_ID, null, MainActivity.this);
+
                     } else {// Otherwise, display error
                         // First, hide progress indicator so error message will be visible
                         View loadingIndicator = findViewById(R.id.progressView);
@@ -219,12 +209,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Clear the adapter of previous news data
         mAdapter.clear();
-        //USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-elements=image&api-key=test";
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);
-
         }
     }
 

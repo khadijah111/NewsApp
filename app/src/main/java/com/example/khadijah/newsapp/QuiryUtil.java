@@ -90,7 +90,7 @@ public class QuiryUtil {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
-                Log.e("ERROR", "Error response code: " + urlConnection.getResponseCode());
+                Log.e("ERROR", "Error response code: " + urlConnection.getErrorStream());
             }
         } catch (IOException e) {
             Log.e("ERROR", "Problem retrieving the earthquake JSON results."+ e.getMessage(), e);
@@ -185,22 +185,12 @@ public class QuiryUtil {
 
                     String articleImageUrl = "";
 
-
                     // For each news article in the newsArray, create an {@link News} object
                     for (int j = 0; j < tagsArray.length(); j++) {
 
                         // Get a single tag at position i within the list of article tags
                         JSONObject currentTag = tagsArray.getJSONObject(j);
                         articlAuthor = currentTag.getString("firstName");
-                  /*  if(currentTag.getString("firstName") == null)
-                    {
-                        articlAuthor = "";
-                    }else {
-                        // For a given tag, extract the JSONObject associated with the
-                        // key called "tags", which represents a list of all authors
-                        // for that article.
-                        articlAuthor =  currentTag.getString("lastName");
-                    }*/
                         articleImageUrl = currentTag.optString("bylineImageUrl");
                         articleImageBitMap = getBitmapFromURL(articleImageUrl);
                     }
